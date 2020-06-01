@@ -31,7 +31,7 @@
     "jest": "22.4.4"
   },
   "author": "Travancore Analytics",
-  "license": "ISC",
+  "license": "GNU GPL V3",
   "bugs": {
     "url": "https://github.com/Travancore-Analytics/react-native-swipeable-bottom-sheet/issues"
   },
