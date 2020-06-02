@@ -25,7 +25,9 @@ export default class BottomSheet extends React.Component {
 
     createPanResponder(){                                       //for detecting swipe on popup
         this.panResponder = PanResponder.create({
-            onStartShouldSetPanResponder: () => true,
+            onMoveShouldSetPanResponder: (evt,gestureState) => {
+                return Math.abs(gestureState.dy) > Math.abs(gestureState.dx * 3);
+            },
             onPanResponderMove: (event, gestureState) => {
                 this.state.popupPosition.setValue(Math.max(0, 0 + gestureState.dy)); 
             },
@@ -44,6 +46,7 @@ export default class BottomSheet extends React.Component {
                     this.close()                                 //close popup if swiping down
                 }
             },
+            onPanResponderTerminate: (evt, gestureState) => false
         });
     }
 
