@@ -6,7 +6,9 @@ import {
     Animated,
     PanResponder,
     Dimensions,
-    Keyboard } from 'react-native'; 
+    Keyboard,
+    BackHandler 
+} from 'react-native'; 
 
 const SCREEN_HEIGHT = Dimensions.get("screen").height
 const SCREEN_WIDTH = Dimensions.get("screen").width
@@ -19,8 +21,14 @@ export default class BottomSheet extends React.Component {
             popupPosition       : new Animated.Value(this.popUpHeight),
             mainViewAnimation   : new Animated.Value(0),
         };
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         
         this.createPanResponder()
+    }
+
+    handleBackButtonClick() {
+        this.close()
+        return true;
     }
 
     createPanResponder(){                                       //for detecting swipe on popup
@@ -51,6 +59,10 @@ export default class BottomSheet extends React.Component {
     }
 
     open = () => {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+        if(this.props.onOpen){
+            this.props.onOpen()
+        }
         Animated.spring(this.state.popupPosition, {            //animate popup position to slide up
             toValue: 0,
             velocity: 3,
@@ -68,6 +80,10 @@ export default class BottomSheet extends React.Component {
 
     close = () => {
         Keyboard.dismiss()
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+        if(this.props.onClose){
+            this.props.onClose()
+        }
 
         Animated.spring(this.state.popupPosition, {         //animate popup position to slide down
             toValue: this.popUpHeight,
