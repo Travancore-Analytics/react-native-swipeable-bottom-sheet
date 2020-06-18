@@ -20,6 +20,7 @@ export default class BottomSheet extends React.Component {
         this.state = {
             popupPosition       : new Animated.Value(this.popUpHeight),
             mainViewAnimation   : new Animated.Value(0),
+            popUpOpen           : false                                
         };
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         
@@ -59,21 +60,20 @@ export default class BottomSheet extends React.Component {
     }
 
     open = () => {
+        this.setState({popUpOpen:true})
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
         if(this.props.onOpen){
             this.props.onOpen()
         }
-        Animated.spring(this.state.popupPosition, {            //animate popup position to slide up
+        Animated.timing(this.state.popupPosition, {            //animate popup position to slide up
             toValue: 0,
-            velocity: 3,
-            tension: 2,
-            friction: 8,
+            duration: 250,
             useNativeDriver: true
         }).start();
 
         Animated.timing(this.state.mainViewAnimation, {      
             toValue: 1,
-            duration: 200,
+            duration: 250,
             useNativeDriver: true,
         }).start(); 
     }
@@ -85,17 +85,19 @@ export default class BottomSheet extends React.Component {
             this.props.onClose()
         }
 
-        Animated.spring(this.state.popupPosition, {         //animate popup position to slide down
+        Animated.timing(this.state.popupPosition, {         //animate popup position to slide down
             toValue: this.popUpHeight,
-            velocity: 3,
-            tension: 2,
-            friction: 8,
+            duration:250,
             useNativeDriver: true
-        }).start();
+        }).start(
+            ()=>{
+                this.setState({popUpOpen : false})
+            }
+        );
 
         Animated.timing(this.state.mainViewAnimation, {
             toValue: 0,
-            duration: 200,
+            duration: 250,
             useNativeDriver: true,
         }).start();
     }
@@ -109,12 +111,7 @@ export default class BottomSheet extends React.Component {
                     outputRange: [SCREEN_HEIGHT, 0],
                     extrapolate: "clamp",
                 }),
-            }],
-            opacity: this.state.mainViewAnimation.interpolate({         
-                inputRange: [0.01, 0.5],
-                outputRange: [0, 1],
-                extrapolate: "clamp",
-            }),
+            }]
         };
 
         const popUp = {
@@ -150,7 +147,11 @@ export default class BottomSheet extends React.Component {
                         <View style={[styles.topBar,this.props.topBarStyle]} />
                     </View>
 
-                    {this.props.children}
+                    {this.state.popUpOpen ?                     //unmount component on close
+                        this.props.children                     
+                    :
+                    null
+                    }
                     
                 </Animated.View>
 
