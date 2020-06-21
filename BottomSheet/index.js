@@ -28,8 +28,11 @@ export default class BottomSheet extends React.Component {
     }
 
     handleBackButtonClick() {
-        this.close()
-        return true;
+        if(this.props.closeOnHardwareBack){
+            this.close()
+            return true;
+        }
+        return false;
     }
 
     createPanResponder(){                                       //for detecting swipe on popup
