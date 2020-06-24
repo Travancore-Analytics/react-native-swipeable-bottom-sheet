@@ -44,16 +44,15 @@ export default class BottomSheet extends React.Component {
                 this.state.popupPosition.setValue(Math.max(0, 0 + gestureState.dy)); 
             },
             onPanResponderRelease: (e, gesture) => {
-                const shouldOpen = gesture.vy <= 0;             //popup is opening or closing by swipe
-                
+                const shouldOpen = ( gesture.vy < 0.8 && gesture.dy < (this.popUpHeight * 0.45 ));             //popup is opening or closing by swipe.(decision based on swiping speed and siped distance)
                 Animated.spring(this.state.popupPosition, {      //animate popup position w.r.t swipe value
                     toValue: shouldOpen ? 0 : this.popUpHeight,
                     velocity: gesture.vy,
-                    tension: 2,
-                    friction: 8,
+                    tension: 80,
+                    friction: 20,
                     useNativeDriver:true
                 }).start();
-
+                
                 if(!shouldOpen) {
                     this.close()                                 //close popup if swiping down
                 }
