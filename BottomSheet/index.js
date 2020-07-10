@@ -104,6 +104,16 @@ export default class BottomSheet extends React.Component {
         }).start();
     }
 
+    renderTopBar(){
+        if(!this.props.hideTopBar){
+            return(
+                <View style={styles.topBarContainer}> 
+                    <View style={[styles.topBar,this.props.topBarStyle]} />
+                </View>
+            )
+        }
+    }
+
     render() {
         const backdrop = {                                              //animates backDrop position & opacity
             transform: [{
@@ -145,9 +155,7 @@ export default class BottomSheet extends React.Component {
                         popUp
                     ]}
                 > 
-                    <View style={styles.topBarContainer}> 
-                        <View style={[styles.topBar,this.props.topBarStyle]} />
-                    </View>
+                    {this.renderTopBar()}
 
                     {this.state.popUpOpen ?                     //unmount component on close
                         this.props.children                     

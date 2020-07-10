@@ -80,6 +80,7 @@ const styles                    = StyleSheet.create({
 | topBarStyle     | object   | Custom style to topBar of Bottom Sheet                            | {}       |
 | backDropStyle     | object   | Custom style to backDropView of Bottom Sheet                            | {}       |
 | sheetStyle     | object   | Custom style to Bottom Sheet                            | {}       |
+| hideTopBar     | object   | hide topBar component                          | false       |
 
 
 
