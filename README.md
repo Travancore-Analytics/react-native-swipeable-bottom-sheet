@@ -81,6 +81,7 @@ const styles                    = StyleSheet.create({
 | backDropStyle     | object   | Custom style to backDropView of Bottom Sheet                            | {}       |
 | sheetStyle     | object   | Custom style to Bottom Sheet                            | {}       |
 | hideTopBar     | object   | hide topBar component                          | false       |
+|persistContents    | boolean | If true, prevents unmounting components on closing popup    | false|
 
 
 

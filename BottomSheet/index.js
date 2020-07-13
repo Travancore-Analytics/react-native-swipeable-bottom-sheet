@@ -114,6 +114,20 @@ export default class BottomSheet extends React.Component {
         }
     }
 
+    renderChildren(){
+        if(this.props.persistContents){
+           return this.props.children 
+        }
+        else{
+            return(
+                this.state.popUpOpen ?                     //unmount component on close
+                        this.props.children                     
+                :
+                null
+            )
+        }
+    }
+
     render() {
         const backdrop = {                                              //animates backDrop position & opacity
             transform: [{
@@ -157,11 +171,7 @@ export default class BottomSheet extends React.Component {
                 > 
                     {this.renderTopBar()}
 
-                    {this.state.popUpOpen ?                     //unmount component on close
-                        this.props.children                     
-                    :
-                    null
-                    }
+                    {this.renderChildren()}
                     
                 </Animated.View>
 
