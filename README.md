@@ -87,10 +87,10 @@ const styles                    = StyleSheet.create({
 
 ## Methods
 
-| Method Name | Description        |
-| ----------- | ------------------ |
-| open        | Open Bottom Sheet  |
-| close       | Close Bottom Sheet |
+| Method Name | Description        | parameters |
+| ----------- | ------------------ | ----------- |
+| open        | Open Bottom Sheet  | callback - function that will be called after popup opened|
+| close       | Close Bottom Sheet | callback - function that will be called after popup closed.|
 
 ## Note
 
