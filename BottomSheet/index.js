@@ -61,7 +61,7 @@ export default class BottomSheet extends React.Component {
         });
     }
 
-    open = () => {
+    open = (callback) => {
         this.setState({popUpOpen:true})
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
         if(this.props.onOpen){
@@ -71,7 +71,13 @@ export default class BottomSheet extends React.Component {
             toValue: 0,
             duration: 250,
             useNativeDriver: true
-        }).start();
+        }).start(
+            ()=>{
+                if(callback){
+                    callback()
+                }
+            }
+        );
 
         Animated.timing(this.state.mainViewAnimation, {      
             toValue: 1,
@@ -80,7 +86,7 @@ export default class BottomSheet extends React.Component {
         }).start(); 
     }
 
-    close = () => {
+    close = (callback) => {
         Keyboard.dismiss()
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
         if(this.props.onClose){
@@ -94,6 +100,9 @@ export default class BottomSheet extends React.Component {
         }).start(
             ()=>{
                 this.setState({popUpOpen : false})
+                if(callback){
+                    callback()
+                }
             }
         );
 
