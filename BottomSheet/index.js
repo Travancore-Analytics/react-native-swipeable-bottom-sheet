@@ -152,7 +152,7 @@ export default class BottomSheet extends React.Component {
                     style ={[
                         styles.backDropTouchable,
                         ]} 
-                    onPress={this.props.closeOnPressMask !== false ? this.close : null } 
+                    onPress={this.props.closeOnPressMask !== false ? () => this.close() : null } 
                 />
 
                 <Animated.View
