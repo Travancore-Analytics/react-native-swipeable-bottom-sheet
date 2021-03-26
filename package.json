@@ -1,6 +1,6 @@
 {
   "name": "react-native-swipeable-bottom-sheet",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Customisable bottom sheet component for react-native. Works both on iOS and android.You can add your own components inside sheet.",
   "main": "index.js",
   "scripts": {
