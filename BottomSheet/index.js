@@ -160,7 +160,7 @@ export default class BottomSheet extends React.Component {
                     style = {[
                         styles.subView,
                         this.props.sheetStyle,
-                        {maxHeight:this.popUpHeight}, 
+                        this.props.maxHeight ? {maxHeight:this.popUpHeight} : {height:this.popUpHeight}, 
                         popUp
                     ]}
                 > 
